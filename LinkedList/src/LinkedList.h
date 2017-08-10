@@ -9,7 +9,7 @@
 #define LINKEDLIST_H_
 
 #include <iostream>
-using namespace std;
+//using namespace std;
 template <class T>
 	struct Node{
 		T data;
@@ -151,12 +151,12 @@ ostream& operator<<(ostream& out,const LinkedList<T>& list){
 template <class T>
 void LinkedList<T>::print(){
 	Node<T> *cur = this->begin();
-	cout<<"Linked List elements:"<<endl;
+	std::cout<<"Linked List elements:"<<std::endl;
 	while(cur!=this->end()){
-		cout<<cur->data<<"-->";
+		std::cout<<cur->data<<"-->";
 		cur = cur->next;
 	}
-	cout<<"NULL"<<endl;
+	std::cout<<"NULL"<<std::endl;
 }
 template <class T>
 LinkedList<T>::~LinkedList(){
