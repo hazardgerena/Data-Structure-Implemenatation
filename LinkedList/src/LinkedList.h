@@ -54,7 +54,6 @@ public:
 	void print();
 	~LinkedList();
 	//friend ostream& operator<<(ostream&,const LinkedList<T>&);
-	//Node<T>& iterator;
 private:
 	void addNode(Node<T>* data);
 
@@ -64,13 +63,11 @@ template <class T>
 LinkedList<T>::LinkedList(){
 	this->head	 	= NULL;
 	this->tail		= NULL;
-	//this->iterator	= new Node<T>();
 }
 template <class T>
 LinkedList<T>::LinkedList(Node<T>* newNode){
 	this->head = newNode;
 	this->tail = newNode;
-	//this->iterator = newNode;
 
 }
 template <class T>
@@ -164,10 +161,6 @@ void LinkedList<T>::print(){
 template <class T>
 LinkedList<T>::~LinkedList(){
 
-	//delete(this->head);
-	//delete(this->tail);
-	///this->head = NULL;
-	//this->tail = NULL;
 	Node<T>* cur = this->head;
 	while(cur){
 		this->head = head->next;
