@@ -5,8 +5,9 @@ TARGET	= TestList
 
 $(TARGET) : $(OBJ)
 	$(CC) -o $@ $^ $(FLAG)
-Test.o : Test.cpp
-	$(CC) -c Test.cpp
+$(OBJ): Test.cpp
+	$(CC) -c $^
 
 clean: 
 	rm -f *.o
+	rm -f $(TARGET)

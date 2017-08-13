@@ -1,0 +1,20 @@
+/*
+ * Test.cpp
+ *
+ *  Created on: Aug 8, 2015
+ *      Author: Hazard Nguyen
+ */
+
+#include "LinkedList.h"
+
+int main(){
+
+	LinkedList<int> intList;
+	intList.insertTail(1);
+	intList.insertTail(2);
+	intList.insertTail(3);
+	cout<<"List : ";
+	cout<<intList<<endl;
+}
+
+

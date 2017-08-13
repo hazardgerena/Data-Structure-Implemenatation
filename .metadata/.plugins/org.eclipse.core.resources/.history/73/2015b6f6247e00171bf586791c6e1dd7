@@ -1,0 +1,235 @@
+/*
+ * LinkedList.h
+ *
+ *  Created on: Aug 8, 2015
+ *      Author: Hazard Nguyen
+ */
+
+#ifndef LINKEDLIST_H_
+#define LINKEDLIST_H_
+
+#include <iostream>
+//using namespace std;
+template <class T>
+	struct Node{
+		T data;
+		Node<T> *next;
+		Node(){
+			this->data = NULL;
+			this->next = NULL;
+		}
+		Node(T value){
+			this->data = value;
+			this->next = NULL;
+		}
+		Node(const Node<T>& copy){
+			this->data = copy.data;
+			this->next = copy.next;
+		}
+		~Node(){
+
+		}
+		Node<T>& operator=(const Node<T>& obj){
+			this->data = obj.data;
+			this->next = obj.next;
+			return *this;
+		}
+		T operator*(){
+			return this->data;
+		}
+		bool operator==(const Node<T>& obj) const{
+			return (*(this)==obj);
+		}
+		bool operator!=(const Node<T>& obj) const{
+			return !(*(this)== obj);
+		}
+		Node<T>& operator++(){
+			return *(this->next);
+		}
+		Node<T>& operator+(int a){
+			while(a>0){
+				this=this->next;
+				a--;
+			}
+			return *this;
+		}
+
+	};
+template <class TNode>
+class Iterator{
+private:
+	TNode* ptr;
+public:
+	Iterator(){
+		ptr = NULL;
+	}
+	Iterator(const Iterator<TNode>& obj){
+		this->ptr = obj.ptr;
+	}
+	~Iterator(){
+		delete ptr;
+		ptr = NULL;
+	}
+	Iterator<TNode>& operator=(const Iterator<TNode>& obj){
+		this->ptr = obj.ptr;
+		return *this;
+	}
+	Iterator<TNode>& operator++(){
+		ptr=ptr->next;
+		return *this;
+	}
+	Iterator<TNode>& operator+(int i){
+		while(i>0){
+			ptr=ptr->next;
+			i--;
+		}
+		return *this;
+	}
+	bool operator==(const Iterator<TNode>& obj){
+		return this->ptr==obj.ptr;
+	}
+	bool operator!=(const Iterator<TNode>& obj){
+		return this->ptr!=obj.ptr;
+	}
+
+};
+
+template <class T>
+class LinkedList{
+private:
+
+	Node<T> *head;
+	Node<T> *tail;
+public:
+	typedef Node<T> iterator;
+	LinkedList();
+	LinkedList(Node<T>*);
+	LinkedList(const LinkedList<T>&);
+	LinkedList<T>& insertTail(T);
+	LinkedList<T>& insertHead(T);
+
+	Node<T>& begin();
+	Node<T>& end();
+	LinkedList& operator=(const LinkedList&);
+	void print();
+	~LinkedList();
+
+	//friend ostream& operator<<(ostream&,const LinkedList<T>&);
+private:
+	void addNode(Node<T>* data);
+
+};
+
+template <class T>
+LinkedList<T>::LinkedList(){
+	this->head	 	= NULL;
+	this->tail		= NULL;
+}
+template <class T>
+LinkedList<T>::LinkedList(Node<T>* newNode){
+	this->head = newNode;
+	this->tail = newNode;
+
+}
+template <class T>
+Node<T>& LinkedList<T>::begin(){
+	return *(this->head);
+}
+template <class T>
+Node<T>& LinkedList<T>::end(){
+	return *(this->tail);
+}
+
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T>& obj) :head(NULL),tail(NULL){
+	Node<T>* cur = obj.head;
+	while(cur){
+		Node<T>* newNode = new Node<T>(cur->data);
+		this->addNode(newNode);
+		cur=cur->next;
+	}
+
+
+}
+
+template <class T>
+LinkedList<T>& LinkedList<T>::insertTail(T val){
+	Node<T>* data = new Node<T>(val);
+	if(this->tail==NULL){
+		data->next = this->tail;
+		this->head = data;
+		this->tail = data;
+		
+
+	}else{
+		tail->next 	= data;
+		tail 		= tail->next;
+
+	}
+
+	return *this;
+}
+template <class T>
+LinkedList<T>& LinkedList<T>::insertHead(T val){
+	Node<T>* data = new Node<T>(val);
+	data->next = this->head;
+	this->head = data;
+	if(this->head->next==NULL){
+		this->tail=data;
+	}
+	return *this;
+}
+
+template <class T>
+void LinkedList<T>::addNode(Node<T>* data){
+	if(this->tail==NULL){
+
+			data->next = this->tail;
+			this->head = data;
+			this->tail = data;
+			return;
+	}
+	this->tail->next 	= data;
+	this->tail 			= this->tail->next;
+}
+
+template <class T>
+LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other){
+	this->head = other.head;
+	this->tail = other.tail;
+	return *this;
+}
+/*template <class T>
+ostream& operator<<(ostream& out,const LinkedList<T>& list){
+	Node<T> *cur = list.begin();
+	while(cur){
+		out<<cur->data<<" ";
+		cur = cur->next;
+	}
+	out<<endl;
+	return out;
+}*/
+template <class T>
+void LinkedList<T>::print(){
+	iterator it = this->begin();
+	std::cout<<"Linked List elements:"<<std::endl;
+	while(it!=this->end()){
+		std::cout<<(*it)<<"-->";
+		++it;
+	}
+	std::cout<<"NULL"<<std::endl;
+}
+template <class T>
+LinkedList<T>::~LinkedList(){
+
+	Node<T>* cur = this->head;
+	while(cur){
+		this->head = head->next;
+		delete cur;
+		cur = this->head;
+	}
+	cur = NULL;
+
+}
+
+#endif /* LINKEDLIST_H_ */

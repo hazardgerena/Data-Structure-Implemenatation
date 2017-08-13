@@ -1,0 +1,33 @@
+/*
+ * List
+ *
+ *  Created on: Aug 8, 2017
+ *      Author: root
+ */
+
+#ifndef LIST_
+#define LIST_
+
+#include <iostream>
+using namespace std;
+
+template <class T>
+class LinkedList{
+private:
+	Node<T> *head;
+	Node<T> *tail;
+public:
+	LinkedList();
+	LinkedList(Node<T>* newNode);
+	LinkedList(const LinkedList& obj);
+	void insertTail(T val);
+	void insertHead(T val);
+	LinkedList& operator=(const LinkedList List);
+	~LinkedList();
+private:
+	void addNode(Node<T> data);
+
+};
+
+
+#endif /* LIST_ */

@@ -1,0 +1,70 @@
+/*
+ * LinkedList.cpp
+ *
+ *  Created on: Aug 8, 2015
+ *      Author: root
+ */
+#include "LinkedList.h"
+template <class T>
+LinkedList<T>::LinkedList():head(NULL),tail(NULL){};
+template <class T>
+LinkedList<T>::LinkedList(Node<T>* newNode){
+	head = newNode;
+	tail = newNode;
+}
+
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T>& obj):head(NULL),tail(NULL){
+	Node<T>* cur = obj.head;
+	while(cur){
+		this->addNode(cur);
+		cur=cur->next;
+	}
+
+
+}
+
+template <class T>
+void LinkedList<T>::insertTail(T val){
+	Node<T>* data = new Node<T>(val);
+	if(this->tail==NULL){
+		data->next = this->tail;
+		this->head = data;
+		this->tail = data;
+	}
+	tail->next 	= data;
+	tail 		= tail->next;
+}
+template <class T>
+void LinkedList<T>::insertHead(T val){
+	Node<T>* data = new Node<T>(val);
+
+	data->next = this->head;
+	this->head = data;
+	if(this->head->next==NULL){
+		this->tail=data;
+	}
+}
+template <class T>
+void LinkedList<T>::addNode(Node<T> data){
+	if(this->tail==NULL){
+			data->next = this->tail;
+			this->head = data;
+			this->tail = data;
+		}
+		this->tail->next 	= data;
+		this->tail 			= this->tail->next;
+}
+
+template <class T>
+ostream& operator<<(ostream& out,const LinkedList<T>& list){
+	Node<T>* cur = list.head;
+	while(cur){
+		out<<cur->data<<" ";
+		cur = cur->next;
+	}
+	out<<endl;
+	return out;
+}
+
+

@@ -34,7 +34,12 @@ template <class T>
 			this->next = obj.next;
 			return *this;
 		}
+
+
 	};
+
+template <class T>
+class iterator;
 template <class T>
 class LinkedList{
 private:
@@ -42,6 +47,46 @@ private:
 	Node<T> *head;
 	Node<T> *tail;
 public:
+	//
+	class iterator{
+	private:
+		Node<T>* ptr;
+	public:
+		iterator(){ptr = NULL;}
+		iterator(const iterator& it){
+			this->ptr = it.ptr;
+		}
+		iterator(Node<T>* node){
+			this->ptr = node;
+		}
+		iterator& operator=(const iterator& it) const{
+			this->ptr = it.ptr;
+			return *this;
+		}
+		iterator& operator++(){
+			this->ptr = this->ptr->next;
+			return *this;
+		}
+		iterator& operator++(int i){
+			this->ptr = this->ptr->next;
+			return *this;
+		}
+		bool operator==(const iterator& it){
+			return (this->ptr == it.ptr);
+		}
+		bool operator!=(const iterator& it){
+			return !(this->ptr== it.ptr);
+		}
+		T operator*(){
+			return this->ptr->data;
+		}
+		~iterator(){
+			delete this->ptr;
+			this->ptr = NULL;
+		}
+	};
+	//
+
 	LinkedList();
 	LinkedList(Node<T>*);
 	LinkedList(const LinkedList<T>&);
@@ -53,6 +98,7 @@ public:
 	LinkedList& operator=(const LinkedList&);
 	void print();
 	~LinkedList();
+
 	//friend ostream& operator<<(ostream&,const LinkedList<T>&);
 private:
 	void addNode(Node<T>* data);
@@ -76,7 +122,7 @@ Node<T>* LinkedList<T>::begin(){
 }
 template <class T>
 Node<T>* LinkedList<T>::end(){
-	return this->tail;
+	return nullptr;
 }
 
 template <class T>
@@ -150,12 +196,16 @@ ostream& operator<<(ostream& out,const LinkedList<T>& list){
 }*/
 template <class T>
 void LinkedList<T>::print(){
-	Node<T> *cur = this->begin();
+	iterator it = this->begin();
 	std::cout<<"Linked List elements:"<<std::endl;
-	while(cur!=this->end()){
-		std::cout<<cur->data<<"-->";
-		cur = cur->next;
+	while(it!=this->end()){
+		//std::cout<<"iterator != null"<<std::endl;
+		std::cout<<(*it)<<"-->";
+		++it;
 	}
+	/*std::cout<<(*it)<<"-->";
+	++it;
+	std::cout<<(*it)<<"-->";*/
 	std::cout<<"NULL"<<std::endl;
 }
 template <class T>
@@ -166,6 +216,7 @@ LinkedList<T>::~LinkedList(){
 		this->head = head->next;
 		delete cur;
 		cur = this->head;
+
 	}
 	cur = NULL;
 

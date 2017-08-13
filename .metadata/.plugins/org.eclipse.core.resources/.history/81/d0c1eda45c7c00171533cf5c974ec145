@@ -1,0 +1,60 @@
+/*
+ * LinkedList.cpp
+ *
+ *  Created on: Aug 8, 2015
+ *      Author: root
+ */
+#include "LinkedList.h"
+template <class T>
+LinkedList<T>::LinkedList():head(NULL),tail(NULL){};
+template <class T>
+LinkedList<T>::LinkedList(Node<T>* newNode){
+	head = newNode;
+	tail = newNode;
+}
+
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T>& obj):head(NULL),tail(NULL){
+	Node<T>* cur = obj.head;
+	while(cur){
+		addNode(cur);
+		cur=cur->next;
+	}
+
+
+}
+
+template <class T>
+void LinkedList<T>::insertTail(T val){
+	Node<T>* data = new Node<T>(val);
+	if(this->tail==NULL){
+		data->next = this->tail;
+		this->head = data;
+		this->tail = data;
+	}
+	tail->next 	= data;
+	tail 		= tail->next;
+}
+template <class T>
+void LinkedList<T>::insertHead(T val){
+	Node<T>* data = new Node<T>(val);
+	if(this->head==NULL){
+		data->next = this->head;
+		this->head = data;
+		this->tail = data;
+	}
+	head->next = this->head;
+	this->head = data;
+}
+template <class T>
+void LinkedList<T>::addNode(Node<T> data){
+	if(this->tail==NULL){
+			data->next = tail;
+			this->head = data;
+			this->tail = data;
+		}
+		tail->next 	= data;
+		tail 		= tail->next;
+}
+
+

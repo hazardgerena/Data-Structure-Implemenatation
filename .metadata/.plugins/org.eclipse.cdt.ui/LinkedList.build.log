@@ -1,0 +1,11 @@
+07:27:11 **** Rebuild of configuration Debug for project LinkedList ****
+Info: Internal Builder is used for build
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o src/Test.o ../src/Test.cpp 
+../src/Test.cpp: In function ‘int main()’:
+../src/Test.cpp:32:8: warning: statement has no effect [-Wunused-value]
+  for(it;it!=a.end();it++){
+        ^
+g++ -o LinkedList src/Test.o 
+
+07:27:12 Build Finished (took 1s.131ms)
+

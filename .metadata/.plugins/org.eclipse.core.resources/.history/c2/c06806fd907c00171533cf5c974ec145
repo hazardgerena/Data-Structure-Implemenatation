@@ -1,0 +1,36 @@
+/*
+ * LinkedList.h
+ *
+ *  Created on: Aug 8, 2017
+ *      Author: root
+ */
+
+#ifndef LINKEDLIST_H_
+#define LINKEDLIST_H_
+
+#include <iostream>
+#include "Node.h"
+using namespace std;
+
+template <class T>
+class LinkedList{
+public:
+	Node<T> *head;
+	Node<T> *tail;
+	LinkedList();
+	LinkedList(Node<T>* newNode);
+	LinkedList(const LinkedList<T>& obj);
+	void insertTail(T val);
+	void insertHead(T val);
+	LinkedList& operator=(const LinkedList List);
+	void print();
+	~LinkedList();
+	friend ostream& operator<<(ostream& ,const LinkedList<T>&);
+private:
+	void addNode(Node<T> data);
+
+};
+
+
+
+#endif /* LINKEDLIST_H_ */

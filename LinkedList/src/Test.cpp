@@ -25,8 +25,14 @@ int main(){
 	inlist.print();
 	LinkedList<int> a = inlist;
 	//a = inlist;
-	cout<<"Assing list a = inlist"<<endl;
-	a.print();
+	//cout<<"Assing list a = inlist"<<endl;
+	//a.print();
+	LinkedList<int>::iterator it = a.begin();
+	cout<<"Go through linkedlist"<<endl;
+	for(it;it!=a.end();it++){
+		cout<<(*it)<<"-->";
+	}
+	cout<<"NULL"<<endl;
 
 	return 0;
 }
