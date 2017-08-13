@@ -85,6 +85,45 @@ public:
 			this->ptr = NULL;
 		}
 	};
+	//const iterator
+	class const_iterator{
+	private:
+		Node<T>* ptr;
+	public:
+		const_iterator(){ptr = NULL;}
+		const_iterator(const const_iterator& it){
+			this->ptr = it.ptr;
+		}
+		const_iterator(Node<T>* node){
+			this->ptr = node;
+		}
+		const_iterator& operator=(const const_iterator& it) const{
+			this->ptr = it.ptr;
+			return *this;
+		}
+		const_iterator& operator++(){
+			this->ptr = this->ptr->next;
+			return *this;
+		}
+		const_iterator& operator++(int i){
+			this->ptr = this->ptr->next;
+			return *this;
+		}
+		bool operator==(const const_iterator& it){
+			return (this->ptr == it.ptr);
+		}
+		bool operator!=(const const_iterator& it){
+			return !(this->ptr== it.ptr);
+		}
+		const T operator*(){
+			return this->ptr->data;
+		}
+		~const_iterator(){
+			delete this->ptr;
+			this->ptr = NULL;
+		}
+	};
+
 	//
 
 	LinkedList();
